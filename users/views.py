@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from users.models import User
+from users.permissions import IsUser
 from users.serializers import UserSerializer
 
 
@@ -17,7 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action in ['create']:
             permission_classes = [AllowAny]
         else:
-            permission_classes = [IsAuthenticated]
+            permission_classes = [IsUser | IsAdminUser]
         return [permission() for permission in permission_classes]
 
     def create(self, request, *args, **kwargs):
