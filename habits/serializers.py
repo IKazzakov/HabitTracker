@@ -14,7 +14,7 @@ class HabitSerializer(serializers.ModelSerializer):
         if not is_pleasant:
             if linked_habit and reward:
                 raise serializers.ValidationError(
-                    'Обычная привычка не может одновременно иметь награду и быть приятной!')
+                    'Обычная привычка не может одновременно иметь награду и связанную привычку!')
         else:
             if reward or linked_habit:
                 raise serializers.ValidationError('Приятная привычка не может иметь награду или связанную привычку!')
