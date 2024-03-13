@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -160,12 +160,12 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-# CELERY_BEAT_SCHEDULE = {
-#     'check_habit_time': {
-#         'task': '',
-#         'schedule': timedelta(minutes=1)
-#     },
-# }
+CELERY_BEAT_SCHEDULE = {
+    'send habit notification': {
+        'task': 'habits.tasks.habit_reminders',
+        'schedule': timedelta(minutes=1)
+    },
+}
 
 # Celery settings
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
