@@ -27,6 +27,26 @@ class HabitSerializer(serializers.ModelSerializer):
 
         return data
 
+    def create(self, validated_data):
+        habit = self.Meta.model.objects.create(**validated_data)
+        habit.user = self.context['request'].user
+        habit.save()
+        return habit
+
     class Meta:
         model = Habit
-        fields = '__all__'
+        fields = (
+            'id',
+            'user',
+            'place',
+            'time',
+            'action',
+            'is_pleasant',
+            'linked_habit',
+            'frequency',
+            'reward',
+            'duration',
+            'is_public',
+        )
+
+
