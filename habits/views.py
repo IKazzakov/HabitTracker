@@ -23,7 +23,9 @@ class HabitCreateApiView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        new_habit = serializer.save()
+        new_habit.user = self.request.user
+        new_habit.save()
 
 
 class HabitRetrieveApiView(generics.RetrieveAPIView):
